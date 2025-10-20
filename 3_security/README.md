@@ -1,1 +1,0 @@
-# Provide an explanation about the security of the tech stack

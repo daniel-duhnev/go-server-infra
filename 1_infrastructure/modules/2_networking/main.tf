@@ -1,3 +1,27 @@
-resource "google_compute_network" "vpc_network" {
-  name = "vpc-network"
+# Main VPC resource
+resource "google_compute_network" "vpc" {
+  name                    = var.network_name
+  project                 = var.project
+  auto_create_subnetworks = false
+}
+
+# Subnets and secondary ranges for each regional GKE cluster
+resource "google_compute_subnetwork" "subnet" {
+  for_each = var.subnets
+
+  name          = "${var.network_name}-${each.key}"
+  project       = var.project
+  ip_cidr_range = each.value.cidr
+  region        = each.value.region
+  network       = google_compute_network.vpc.self_link
+
+  # Secondary ranges required by GKE - pods and services
+  secondary_ip_range {
+    range_name    = "pods-${each.key}"
+    ip_cidr_range = each.value.pods_secondary_cidr
+  }
+  secondary_ip_range {
+    range_name    = "services-${each.key}"
+    ip_cidr_range = each.value.services_secondary_cidr
+  }
 }

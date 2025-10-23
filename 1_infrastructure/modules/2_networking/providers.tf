@@ -8,10 +8,4 @@ terraform {
       version = "~> 7.8"
     }
   }
-
-    backend "gcs" {
-        bucket  = var.gcs_bucket_name
-        prefix  = "terraform/state/1_infrastructure/modules/2_networking"
-        project = var.project_id
-    }
 }

@@ -8,7 +8,7 @@ variable "network_name" {
   description = "Name of the VPC to create."
 }
 
-# VPC-Native GKE subnet required variables
+# Required variables for VPC subnet for GKE
 variable "subnets" {
   type = map(object({
     region                 = string

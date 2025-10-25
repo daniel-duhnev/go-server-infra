@@ -1,7 +1,7 @@
 # Reserve a global IP for the LB frontend
 resource "google_compute_global_address" "lb_ip" {
   name    = var.lb_ip_name
-  project = var.project
+  project = var.host_project_id
   # ensure publicly routable IP
   address_type = "EXTERNAL"
 }
@@ -10,7 +10,7 @@ resource "google_compute_global_address" "lb_ip" {
 resource "google_dns_managed_zone" "public_zone" {
   name        = var.dns_zone_name
   dns_name    = var.dns_domain
-  project     = var.project
+  project     = var.host_project_id
   description = "Public zone for application domain."
 }
 
@@ -24,5 +24,5 @@ resource "google_dns_record_set" "lb_a_record" {
   ttl          = 300
   # resource record data - include the IP address to be mapped
   rrdatas      = [google_compute_global_address.lb_ip.address]
-  project      = var.project
+  project      = var.host_project_id
 }

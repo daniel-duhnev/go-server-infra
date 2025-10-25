@@ -1,7 +1,7 @@
 # Allow internal VPC traffic
 resource "google_compute_firewall" "allow-internal" {
   name    = "${var.network_name}-allow-internal"
-  project = var.project
+  project = var.host_project_id
   network = google_compute_network.vpc.self_link
 
   # Allow all protocols internally
@@ -20,7 +20,7 @@ resource "google_compute_firewall" "allow-internal" {
 # Allow GCP load balancer health checks to reach nodes
 resource "google_compute_firewall" "allow-lb-healthchecks" {
   name    = "${var.network_name}-allow-lb-healthchecks"
-  project = var.project
+  project = var.host_project_id
   network = google_compute_network.vpc.self_link
 
   allow {

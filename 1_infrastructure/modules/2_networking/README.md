@@ -14,8 +14,8 @@ This module creates the core networking infrastructure for a multi-region GKE de
 module "networking" {
   source = "./modules/networking"
   
-  project      = "my-project"
-  network_name = "gke-network"
+  host_project_id = "my-project"
+  network_name    = "gke-network"
   
   subnets = {
     primary = {

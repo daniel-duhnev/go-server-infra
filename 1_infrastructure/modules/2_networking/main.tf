@@ -1,7 +1,7 @@
 # Main VPC resource
 resource "google_compute_network" "vpc" {
   name                    = var.network_name
-  project                 = var.project
+  project                 = var.host_project_id
   auto_create_subnetworks = false
 }
 
@@ -10,7 +10,7 @@ resource "google_compute_subnetwork" "subnet" {
   for_each = var.subnets
 
   name          = "${var.network_name}-${each.key}"
-  project       = var.project
+  project       = var.host_project_id
   ip_cidr_range = each.value.cidr
   region        = each.value.region
   network       = google_compute_network.vpc.self_link

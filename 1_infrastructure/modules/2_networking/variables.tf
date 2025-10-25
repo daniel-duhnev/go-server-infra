@@ -1,6 +1,6 @@
-variable "project" {
+variable "host_project_id" {
   type        = string
-  description = "GCP project id where VPC and resources will be created."
+  description = "GCP project id where VPC will be created."
 }
 
 variable "network_name" {

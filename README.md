@@ -2,7 +2,7 @@
 IaC proposal for deploying a highly available Golang web server on GCP using GKE and Terraform.
 
 ## Requirements
-### 1. Infraestructure
+### 1. Infrastructure
 - Diagram of architecture in GCP to deploy server with high availability
 - Terraform code (IaC) - should be modular and reusable
 - Use of Kubernetes (GKE)

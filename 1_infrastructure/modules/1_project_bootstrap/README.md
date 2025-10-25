@@ -1,11 +1,11 @@
 # Module for project bootstrap if required
 
 A light bootstrap module can be included if needed to:
-- Create the GCP Project.
-- Link it to the existing billing account.
-- Enable the required Google APIs (GKE, Compute, IAM, Artifact Registry, Cloud Monitoring, Cloud Logging, Cloud DNS).
-- Creating a GCS bucket + enabled versioning.
-- Granting a Google Group or SA the Storage IAM roles required to read and write to terraform state file (roles/storage.objectAdmin + roles/storage.bucketAdmin to follow least privilage principle).
+- Prepare GCP projects - a management (host) project and 2 service projects where GKE clusters in different regions will be created.
+- Link each target project to the existing billing account.
+- Enable the required Google APIs in the appropriate projects (e.g. GKE, Compute, IAM, Artifact Registry, Cloud Monitoring, Cloud Logging, Cloud DNS).
+- Create a GCS bucket for Terraform state and enable versioning.
+- Grant a Google Group or Service Account the Storage IAM roles required to read/write Terraform state (follow least-privilege such as roles/storage.objectAdmin + roles/storage.bucketAdmin).
 
 Option 1:
 - Run terraform project bootstrap locally with a local backend with the default terraform.tfstate file.

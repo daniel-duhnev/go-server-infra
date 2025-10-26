@@ -1,0 +1,21 @@
+project_id  = "my-dev-project"
+environment = "dev"
+
+subnets = {
+  primary = {
+    region                   = "europe-west1"
+    cidr                     = "10.0.0.0/20"
+    pods_secondary_cidr      = "10.1.0.0/16"
+    services_secondary_cidr  = "10.2.0.0/20"
+  }
+  secondary = {
+    region                   = "europe-west2"
+    cidr                     = "10.0.16.0/20"
+    pods_secondary_cidr      = "10.3.0.0/16"
+    services_secondary_cidr  = "10.4.0.0/20"
+  }
+}
+
+dns_zone_name = "dev-service-zone"
+# remember to include trailing dot
+dns_domain = "dev.example.com."

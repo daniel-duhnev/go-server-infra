@@ -25,3 +25,15 @@ resource "google_compute_subnetwork" "subnet" {
     ip_cidr_range = each.value.services_secondary_cidr
   }
 }
+
+# Service project GKE control plane and node VMs need permission to host project subnets.
+# Investigate further how to best pass the values from all the projects involved.
+# service_project_number is the numeric project number of the service project and NOT the project id.
+
+# resource "google_compute_subnetwork_iam_member" "gke_network_user" {
+#   project    = var.host_project_id         
+#   region     = var.region
+#   subnetwork = var.subnet_name
+#   role       = "roles/compute.networkUser"
+#   member     = "serviceAccount:service-${var.service_project_number}@container-engine-robot.iam.gserviceaccount.com"
+# }

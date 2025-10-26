@@ -8,16 +8,16 @@ variable "network_self_link" {
   description = "Self link of the VPC network."
 }
 
-# clusters map keyed by org name (eg 'europe')
+# clusters map keyed by name used within org
 variable "clusters" {
   type = map(object({
-    name                         = string  # cluster name
-    region                       = string  # GCP region (eg europe-west1)
-    subnetwork_self_link         = string  # module.network.subnet_self_links[key]
-    pods_secondary_range_name    = string  # module.network.pods_secondary_range_names[key]
-    services_secondary_range_name= string  # module.network.services_secondary_range_names[key]
+    name                         = string  
+    region                       = string  
+    subnetwork_self_link         = string  
+    pods_secondary_range_name    = string  
+    services_secondary_range_name= string  
 
-    # node pool config for this cluster
+    # node pool config
     node_pool = object({
       name              = string
       machine_type      = string

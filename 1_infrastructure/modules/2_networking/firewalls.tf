@@ -14,7 +14,7 @@ resource "google_compute_firewall" "allow-internal" {
   direction     = "INGRESS"
   # priority integer from 0 to 65535, lower number = higher priority, default 1000
   # see google doc for more info: https://cloud.google.com/firewall/docs/firewalls#priority_order_for_firewall_rules
-  priority      = 1000
+  priority = 1000
 }
 
 # Allow GCP load balancer health checks to reach nodes
@@ -25,7 +25,7 @@ resource "google_compute_firewall" "allow-lb-healthchecks" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80","443"]
+    ports    = ["80", "443"]
   }
 
   source_ranges = var.lb_healthcheck_source_ranges

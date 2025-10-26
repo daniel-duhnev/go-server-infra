@@ -3,8 +3,8 @@ resource "google_container_node_pool" "node_pool" {
 
   name               = each.value.node_pool.name
   project            = var.project
-  cluster            = each.value.name          
-  location           = each.value.region       
+  cluster            = each.value.name
+  location           = each.value.region
   initial_node_count = each.value.node_pool.initial_node_count
 
   node_config {

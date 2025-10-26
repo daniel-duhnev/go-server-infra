@@ -11,21 +11,21 @@ variable "network_self_link" {
 # clusters map keyed by name used within org
 variable "clusters" {
   type = map(object({
-    name                         = string  
-    region                       = string  
-    subnetwork_self_link         = string  
-    pods_secondary_range_name    = string  
-    services_secondary_range_name= string  
+    name                          = string
+    region                        = string
+    subnetwork_self_link          = string
+    pods_secondary_range_name     = string
+    services_secondary_range_name = string
 
     # node pool config
     node_pool = object({
-      name              = string
-      machine_type      = string
-      initial_node_count= number
-      min_count         = number
-      max_count         = number
-      preemptible       = bool
-      disk_size_gb      = number
+      name               = string
+      machine_type       = string
+      initial_node_count = number
+      min_count          = number
+      max_count          = number
+      preemptible        = bool
+      disk_size_gb       = number
     })
   }))
 

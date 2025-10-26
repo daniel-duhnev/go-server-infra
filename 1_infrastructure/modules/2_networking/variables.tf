@@ -11,13 +11,13 @@ variable "network_name" {
 # Required variables for VPC subnet for GKE
 variable "subnets" {
   type = map(object({
-    region                 = string
+    region = string
     # assign internal IP addresses for gke nodes
-    cidr                   = string
+    cidr = string
     # assign internal IP addresses for gke pods
-    pods_secondary_cidr    = string
+    pods_secondary_cidr = string
     # assign internal IP addresses for gke services 
-    services_secondary_cidr= string
+    services_secondary_cidr = string
   }))
   description = <<EOT
     Map of subnet definitions keyed by name used within org.

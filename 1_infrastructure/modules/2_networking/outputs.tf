@@ -25,5 +25,5 @@ output "lb_global_ip" {
 
 # DNS zone info
 output "dns_zone_name" {
-  value = google_dns_managed_zone.public_zone[0].name
+  value = google_dns_managed_zone.public_zone.name
 }

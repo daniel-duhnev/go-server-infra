@@ -17,5 +17,12 @@ subnets = {
 }
 
 dns_zone_name = "dev-service-zone"
-# remember to include trailing dot
 dns_domain = "dev.example.com."
+
+# Service projects for active and passive clusters to attach to host Shared VPC
+service_project_active_id  = "my-active-service-project-id"
+service_project_passive_id = "my-passive-service-project-id"
+
+# Which subnet keys to use (defaults are primary/secondary)
+# active_subnet_key = "primary"
+# passive_subnet_key = "secondary"

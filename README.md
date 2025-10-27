@@ -56,3 +56,22 @@ For more info on the setup and what happens behind the scenes see article on [Pr
 - (Planned) Ingress module: wires NEGs from clusters to a single global BackendService and frontend public IP - created after clusters and ingress controllers exist.
 - (Planned) Monitoring module: per-cluster Prometheus, Grafana, and prometheus-adapter to support custom-metric HPA. Deployed via the [kube-prometheus-stack Helm chart](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack).
 - (Planned) Artifact registry module - Needed for CI/CD App solution to store Docker images. Can be used for Terraform modules that are considered outside the necessary infrastructure bootstrap.
+
+2. Application
+
+- Use GitHub Actions with OpenID Connect (OIDC) to authenticate directly with GCP
+- Build Docker image and push to Artifact Registry with immutable SHA tag
+- Apply a canary Kubernetes Deployment (e.g. label version "canary") and sets its image to the new SHA. The stable deployment remains untouched.
+- Run smoke-test.sh - e.g. simple liveness/readiness probe check.
+- If smoke test passes, run promote.sh script to patch service to point to new deployment.
+- If smoke test fails, run rollback.sh script to repoint service to stable deployment and delete canary.
+
+For more information on authentication to GCP with Github Actions see article on [Enabling keyless authentication from GitHub Actions](https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions).
+
+![Github Actions Auth diagram](./diagrams/GitHub_Actions.jpg)
+
+Example github actions workflow for deployign an app to GKE can be found in this [Google Doc](https://cloud.google.com/dotnet/docs/getting-started/deploying-to-gke-using-github-actions). We want to apply the architecture below to our Go server.
+
+![Go server github actions diagram](./diagrams/github_actions_tutorial.png)
+
+1. Security

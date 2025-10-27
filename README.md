@@ -53,5 +53,6 @@ For more info on the setup and what happens behind the scenes see article on [Pr
 ### Key components
 - Networking module (modules/2_networking): creates host VPC, per-region subnets with Pod/Service secondary ranges, firewall rules allowing LB health checks, reserved global IP and DNS zone.
 - GKE module (modules/3_gke): creates one regional GKE cluster per var.clusters entry, explicit node pools, Workload Identity enabled, and uses the host subnets/secondary ranges.
-- (Planned) Ingress module: wires NEGs from clusters to a single global BackendService + frontend IP (GCLB) — created after clusters and ingress controllers exist.
-- (Planned) Monitoring module: per-cluster Prometheus + Grafana + prometheus-adapter to support custom-metric HPA.
+- (Planned) Ingress module: wires NEGs from clusters to a single global BackendService and frontend public IP - created after clusters and ingress controllers exist.
+- (Planned) Monitoring module: per-cluster Prometheus, Grafana, and prometheus-adapter to support custom-metric HPA. Deployed via the [kube-prometheus-stack Helm chart](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack).
+- (Planned) Artifact registry module - Needed for CI/CD App solution to store Docker images. Can be used for Terraform modules that are considered outside the necessary infrastructure bootstrap.

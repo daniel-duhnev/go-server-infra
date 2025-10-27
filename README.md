@@ -33,18 +33,16 @@ This proposal assumes the following higher-level infrastructure and configuratio
 - GCS Bucket exists for storing terraform state.
 - IAM is setup to run terraform - either Google Group with least privilage IAM roles or better and more secure - dedicated Terraform service account + impersonate that SA when running Terraform (SA required for any CI/CD automation solution).
 
-## Overview of solution
+## Solution high level overview
 
-### Networking
-Objects to create:
-- VPC - network boundary for clusters.
-- Two regional subnets - one per region for multi-region failover architecture.
-- Secondary alias IP ranges per subnet for pods and services.
-- Firewall rule to permit GCP Health Checks - use publicly known source ranges found on https://cloud.google.com/load-balancing/docs/health-check-concepts#ip-range
-- Reserved global static IP for the GCLB frontend for a single public IP.
-- Cloud DNS public zone record pointing the hostname to the reserved IP.
+1. Infrastructure
 
-Module output:
-- Outputs from the networking module that the GKE module consumes: subnet self_links, secondary range names, reserved IP value, and firewall names.
+Provision network + two regonal GKE clusters using a Shared VPC pattern. Networking components deployed in a host project, while GKE clusters run in separate service projects attached to the host VPC. Uses a single Global HTTPS Load Balancer to expose web server from a single endpoint.
 
-### GKE
+### Key components
+- Networking module (modules/2_networking): creates host VPC, per-region subnets with Pod/Service secondary ranges, firewall rules allowing LB health checks, reserved global IP and DNS zone.
+- GKE module (modules/3_gke): creates one regional GKE cluster per var.clusters entry, explicit node pools, Workload Identity enabled, and uses the host subnets/secondary ranges.
+
+- (Planned) Ingress module: wires NEGs from clusters to a single global BackendService + frontend IP (GCLB) — created after clusters and ingress controllers exist.
+
+- (Planned) Monitoring module: per-cluster Prometheus + Grafana + prometheus-adapter to support custom-metric HPA.

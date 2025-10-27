@@ -37,14 +37,18 @@ This proposal assumes the following higher-level infrastructure and configuratio
 
 1. Infrastructure
 
-Provision network + two regonal GKE clusters using a Shared VPC pattern. Networking components deployed in a host project, while GKE clusters run in separate service projects attached to the host VPC. Uses a single Global HTTPS Load Balancer to expose web server from a single endpoint.
+Provision network and two regional GKE clusters using a Shared VPC pattern. Networking components deployed in a host project, while GKE clusters run in separate service projects attached to the host VPC. Uses a single Global HTTPS Load Balancer to expose web server from a single endpoint.
 
 Architecture overview
-![Shared VPC — host & service projects](./diagrams/shared-vpc-host-service-projects.drawio-white.png)
+![Shared VPC - host and service projects](./diagrams/shared-vpc-host-service-projects.drawio-white.png)
 
 Example of local Terraform deployment (bootstrap pre-CI/CD)
 ![GKE infra bootstrap](./diagrams/gke-infra-bootstrap.drawio-white.png)
 
+Monitoring would be handled per cluster using the kube-prometheus-stack.
+![Kube-prometheus-stack deployment](./diagrams/kube-prometheus-stack-helm.jpg)
+
+For more info on the setup and what happens behind the scenes see article on [Prometheus Operator - Interactions Between the kube-prometheus-stack Kubernetes Resources](https://luppeng.wordpress.com/2021/04/01/prometheus-operator-interactions-between-the-kube-prometheus-stack-kubernetes-resources/)
 
 ### Key components
 - Networking module (modules/2_networking): creates host VPC, per-region subnets with Pod/Service secondary ranges, firewall rules allowing LB health checks, reserved global IP and DNS zone.

@@ -74,4 +74,6 @@ Example github actions workflow for deployign an app to GKE can be found in this
 
 ![Go server github actions diagram](./diagrams/github_actions_tutorial.png)
 
-1. Security
+3. Security
+
+Consider using Google's Managed Cloud Armor Service to sit in front of App to protect against DDoS attacks and provide custom WAF rules. Evaluate cost and suitabilility with tests in dev environment. Example terraform module to deploy Cloud Armor can be found under `3_security/cloud-armor`.
